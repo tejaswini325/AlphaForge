@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: alphaforge
+      POSTGRES_USER: alphaforge
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-localdev_only_change_me}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alphaforge -d alphaforge"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - alphaforge_pg:/var/lib/postgresql/data
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://alphaforge:${POSTGRES_PASSWORD:-localdev_only_change_me}@db:5432/alphaforge
+      FRONTEND_ORIGINS: http://localhost:5173,http://localhost:8080
+    ports: ["8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8000
+    ports: ["8080:80"]
+    depends_on: [backend]
+volumes:
+  alphaforge_pg:

@@ -1,0 +1,26 @@
+{
+  "name": "alphaforge-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "plotly.js": "^2.35.2",
+    "plotly.js-dist-min": "^4.1.2",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-plotly.js": "^2.6.0",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-plotly.js": "^2.6.3"
+  }
+}
