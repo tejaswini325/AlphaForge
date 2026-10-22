@@ -17,7 +17,7 @@ function resolvePlotlyFactory(candidate: unknown): typeof plotlyFactoryModule.de
   throw new TypeError('react-plotly.js/factory did not provide a callable factory');
 }
 
-const Plot = resolvePlotlyFactory(plotlyFactoryModule.default)(Plotly);
+const Plot: any = resolvePlotlyFactory(plotlyFactoryModule.default)(Plotly);
 const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 type Metric = {cumulative_return:number; annualized_return:number; annualized_volatility:number; sharpe_ratio:number; max_drawdown:number; sortino_ratio:number};
 type Backtest = {strategy:string; metrics:Metric; series:{date:string;equity:number;return:number;turnover_one_way:number;transaction_cost_fraction:number}[]; cost_convention:string; data_source:string};
