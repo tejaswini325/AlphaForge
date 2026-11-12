@@ -18,8 +18,15 @@ from app.database.models import Experiment
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 logger = logging.getLogger("alphaforge")
 app = FastAPI(title="AlphaForge API", version="1.0.0", description="Research-grade educational quantitative analytics. Not investment advice.")
-app.add_middleware(CORSMiddleware, allow_origins=list(settings.frontend_origins), allow_credentials=False, allow_methods=["GET","POST"], allow_headers=["*"])
-try:
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://alpha-forge-kappa.vercel.app",
+    ],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)try:
     Base.metadata.create_all(bind=engine)
 except Exception:
     logger.exception("Database initialization failed; API continues without persistence.")
