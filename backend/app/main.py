@@ -26,7 +26,8 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
-)try:
+)
+try:
     Base.metadata.create_all(bind=engine)
 except Exception:
     logger.exception("Database initialization failed; API continues without persistence.")
